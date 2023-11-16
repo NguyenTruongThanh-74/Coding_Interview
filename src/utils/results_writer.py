@@ -1,10 +1,12 @@
 import sys
+
 sys.path.append("../")
 import os
 import json
 import numpy as np
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from utils.utils import check_dir_exists, explore_list
+
 
 class ResultsWriter:
     def __init__(self, results_dir, dataset_name):

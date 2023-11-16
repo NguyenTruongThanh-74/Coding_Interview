@@ -1,13 +1,14 @@
 import sys
+
 sys.path.append("../")
-import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import json
 import itertools
-from config.variables import metrics_evaluate,day_split_test
+from config.variables import metrics_evaluate, day_split_test
+
 
 def check_dir_exists(dir_path):
     if not os.path.exists(dir_path):
@@ -31,6 +32,7 @@ def create_date_date_features(data_frame):
 
     return data_frame
 
+
 def create_date_lagged_3_features(data_frame):
     # Create features totalU_lag1, totalU_lag2, totalU_lag3
     data_frame['totalU_lag1'] = data_frame['totalU'].shift(1)
@@ -48,32 +50,36 @@ def split_data_statistical_models(df):
     print(f"Train Size: {len(train_df)}, Test Size: {len(test_df)}")
     return train_df, test_df
 
+
 def make_predictions_and_print_rmse(model, test_df):
     print(f"forecasting and RMSE of total debts")
-    
-    forecast, confidence_interval = model.predict(X=test_df, n_periods = len(test_df), return_conf_int = True)
-    forecasts = pd.Series(forecast, index = test_df[:len(test_df)].index)
-    lower = pd.Series(confidence_interval[:, 0], index = test_df[:len(test_df)].index)
-    upper = pd.Series(confidence_interval[:, 1], index = test_df[:len(test_df)].index)
-    
+
+    forecast, confidence_interval = model.predict(X=test_df, n_periods=len(test_df), return_conf_int=True)
+    forecasts = pd.Series(forecast, index=test_df[:len(test_df)].index)
+    lower = pd.Series(confidence_interval[:, 0], index=test_df[:len(test_df)].index)
+    upper = pd.Series(confidence_interval[:, 1], index=test_df[:len(test_df)].index)
+
     rmse = np.sqrt(np.mean((forecast.values - test_df.values) ** 2))
-    
+
     print("RMSE is: ", rmse)
-    
+
     return forecasts, lower, upper
+
 
 def plot_predictions(train_values, test_values, predicted_values, lower_confidence, upper_confidence):
     plt.figure(figsize=(10, 6))
     plt.plot(train_values.index, train_values, label='Train Values')
     plt.plot(test_values.index, test_values, label='Test Values')
     plt.plot(predicted_values.index, predicted_values, color='red', label='Predicted Values')
-    plt.fill_between(lower_confidence.index, lower_confidence, upper_confidence, color='gray', alpha=0.3, label='Confidence Interval')
+    plt.fill_between(lower_confidence.index, lower_confidence, upper_confidence, color='gray', alpha=0.3,
+                     label='Confidence Interval')
     plt.xlabel('Time')
     plt.ylabel('Total Debts')
     plt.title('Total Debts: Train, Predicted, and True Values with Confidence Interval')
     plt.legend()
     plt.show()
     return
+
 
 def compute_mean_metric(metrics_list, n_cv_folds, method="RMSE"):
     if method not in metrics_evaluate:
@@ -87,6 +93,7 @@ def get_y_train(df):
     y_all_train = data_train['totalU'].tolist()
     return y_all_train
 
+
 def explore_list(lst):
     """
     explore nested list into a single-level list.
@@ -97,12 +104,14 @@ def explore_list(lst):
         [1, 2, 5, 6]
     """
     return list(itertools.chain(*lst))
+
+
 def get_metric_files(result_path, method):
     rmse_benchmark = {
         "linear_regression": [],
         "random_forest_regressor": [],
-        "gradient_boosting_regressor":[],
-        "decision_tree_regressor":[],
+        "gradient_boosting_regressor": [],
+        "decision_tree_regressor": [],
         'RGU': [],
         'dataset': []
     }

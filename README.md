@@ -3,7 +3,7 @@ Coding interviews test candidate's technical knowledge, coding ability
 
 ## Description
 The steps process a Time Series problem
-![system_diagram.png](./documents/system_diagram.png)
+![system_diagram.png](./documents/method_diagram.png)
 
 1. **Exploratory Data Analysis (EDA)**
 
@@ -54,6 +54,12 @@ jupyter notebook
 2. Your web browser will open, displaying the Jupyter Notebook interface.
 3. Navigate to the project directory in the Jupyter Notebook interface and open the **PredictiveModelTaskReport.ipynb** file in the folder notebooks.
 
+## Task Reports
+```
+Coding_Interview\task_reports
+```
+The folder contains PDF files with my reports on tasks and you will find individual PDF files for each task in the assignment.
+
 ## File Description
 The file description provides an overview of the purpose and functionality of each file within the source code of the 
 project.
@@ -64,4 +70,10 @@ project.
 and Machine Learning regression models 
 - notebook: The folder contains the notebook files for running
 - utils.py: Utility functions used throughout the project
+```
+The architecture of the directory where I save data is as follows:
+```
+Coding_Interview\data\raw: It contains raw data.
+Coding_Interview\data\processed: the folder contains the data that was processed by removing missing and removing duplicate data,...
+Coding_Interview\data\features: the folder save 3 dataset created: 'date_smedebtsu,' 'lag3_smedebtsu,' and 'lag3_date_smedebtsu'
 ```

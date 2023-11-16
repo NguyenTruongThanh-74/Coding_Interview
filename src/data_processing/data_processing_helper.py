@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append("../")
 import numpy as np
 import pandas as pd
@@ -12,6 +13,7 @@ def preprocess_data(ts_dt):
     """
     ts_dt['Date_time'] = pd.to_datetime(ts_dt['Date_time'])
     return ts_dt
+
 
 def scale_data(df):
     df_copy = df.copy()
